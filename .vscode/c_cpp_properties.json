@@ -1,19 +1,21 @@
 {
     "configurations": [
         {
-            "name": "Win32",
-            "includePath": [
-                "${workspaceFolder}\\**",
-                "${workspaceFolder}\\..\\allegro\\include"
+            "name": "Mac",            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/local/include",
+                "/opt/homebrew/Cellar/allegro/5.2.10.1_1/include"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
             ],
-            "compilerPath": "${workspaceFolder}\\..\\MinGW\\bin\\g++.exe",
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "macos-clang-x64",
             "compilerArgs": [
-                "-std=c++17",
                 "-Wall",
                 "-Wextra"
             ]

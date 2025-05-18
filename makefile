@@ -5,6 +5,7 @@ CXXFLAGS := -Wall -std=c11 -O2
 SOURCE := $(wildcard *.c */*.c)
 # SOURCE := $(filter-out tutorial, $(SOURCE))
 OBJ := $(patsubst %.c, %.o, $(notdir $(SOURCE)))
+LDFLAGS := -framework CoreFoundation
 RM_OBJ := 
 RM_OUT := 
 
@@ -30,7 +31,7 @@ else # Mac OS / Linux
 	export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 
 	ALLEGRO_LIBRARIES := allegro-5 allegro_image-5 allegro_font-5 allegro_ttf-5 allegro_dialog-5 allegro_primitives-5 allegro_audio-5 allegro_acodec-5
-	ALLEGRO_FLAGS_RELEASE := $(shell pkg-config --cflags --libs "$(ALLEGRO_LIBRARIES) <= 5.2.7") -lallegro -lallegro_main
+	ALLEGRO_FLAGS_RELEASE := -I/opt/homebrew/include -L/opt/homebrew/lib -lallegro_main -lallegro -lallegro_font -lallegro_ttf -lallegro_primitives -lallegro_audio -lallegro_acodec -lallegro_image -lallegro_dialog
 	ALLEGRO_DLL_PATH_RELEASE := 
 	ALLEGRO_FLAGS_DEBUG := $(ALLEGRO_FLAGS_RELEASE)
 	ALLEGRO_DLL_PATH_DEBUG := 
@@ -44,7 +45,7 @@ endif
 
 debug:
 	$(CC) -c -g $(CXXFLAGS) $(SOURCE) $(ALLEGRO_FLAGS_DEBUG) -D DEBUG
-	$(CC) $(CXXFLAGS) -o $(OUT) $(OBJ) $(ALLEGRO_FLAGS_DEBUG) $(ALLEGRO_DLL_PATH_DEBUG)
+	$(CC) $(CXXFLAGS) -o $(OUT) $(OBJ) $(LDFLAGS) $(ALLEGRO_FLAGS_DEBUG) $(ALLEGRO_DLL_PATH_DEBUG)
 	$(RM_OBJ)
 
 release:
